@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Industriel - Enes Emin Cukur</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest" crossorigin="anonymous"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            abipa: {
+              navy: '#0B1B2B',
+              navyDark: '#07121E',
+              orange: '#E35205',
+              orangeHover: '#CC4700',
+              steel: '#4A5568',
+              slate: '#F1F5F9',
+              cardBg: '#FFFFFF',
+              borderGray: '#E2E8F0',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+    body {
+      background-color: #F8FAFC;
+      color: #0F172A;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .bg-smooth-ambient {
+      background: radial-gradient(circle at 10% 20%, rgba(227, 82, 5, 0.04) 0%, transparent 40%),
+                  radial-gradient(circle at 90% 80%, rgba(11, 27, 43, 0.04) 0%, transparent 40%),
+                  #F8FAFC;
+    }
+  </style>
+</head>
+<body class="bg-smooth-ambient text-slate-800 min-h-screen flex flex-col antialiased selection:bg-orange-100 selection:text-abipa-orange pb-24">
+
+  <!-- ====================================================== -->
+  <!-- EN-TÊTE FIXE ET NAVIGATION PRINCIPALE                  -->
+  <!-- ====================================================== -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo & Titre Professionnel -->
+        <a href="#screen-qui-suis-je" class="flex items-center gap-3.5 group">
+          <div class="w-11 h-11 rounded-xl bg-abipa-navy flex items-center justify-center text-white font-mono font-black text-xl shadow-md border-2 border-slate-800 group-hover:border-abipa-orange transition-colors">
+            EC
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-extrabold text-lg text-abipa-navy tracking-tight group-hover:text-abipa-orange transition-colors">Enes Emin CUKUR</span>
+            </div>
+            <div class="flex items-center gap-2 mt-0.5">
+              <span class="w-2 h-2 rounded-full bg-abipa-orange animate-pulse"></span>
+              <span class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-600">PORTFOLIO INDUSTRIEL</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Barre de Navigation Desktop (ScrollSpy Actif - 5 Sections) -->
+        <nav class="hidden lg:flex items-center gap-1.5 p-1 bg-slate-100/90 rounded-xl border border-slate-200 text-xs font-semibold text-slate-600">
+          <button onclick="scrollToSection('screen-qui-suis-je')" id="nav-screen-qui-suis-je" class="nav-link px-3.5 py-2 rounded-lg transition-all text-slate-600">1. Qui suis-je ?</button>
+          <button onclick="scrollToSection('screen-academique')" id="nav-screen-academique" class="nav-link px-3.5 py-2 rounded-lg hover:text-abipa-orange transition-all text-slate-600">2. Réalisations Académiques</button>
+          <button onclick="scrollToSection('screen-entreprise')" id="nav-screen-entreprise" class="nav-link px-3.5 py-2 rounded-lg hover:text-abipa-orange transition-all text-slate-600">3. En Entreprise</button>
+          <button onclick="scrollToSection('screen-competences')" id="nav-screen-competences" class="nav-link px-3.5 py-2 rounded-lg hover:text-abipa-orange transition-all font-bold text-abipa-navy bg-white shadow-sm border border-slate-200">4. Compétences</button>
+          <button onclick="scrollToSection('screen-contact')" id="nav-screen-contact" class="nav-link px-3.5 py-2 rounded-lg hover:text-abipa-orange transition-all text-slate-600">5. Contact</button>
+        </nav>
+
+        <!-- Actions Directes : CV & Menu Mobile -->
+        <div class="flex items-center gap-2">
+          <button onclick="downloadOrOpenCv()" class="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-abipa-navy hover:bg-slate-800 text-white text-xs font-bold shadow transition-all">
+            <i data-lucide="file-text" class="w-4 h-4 text-abipa-orange"></i>
+            <span>CV PDF</span>
+          </button>
+          <button onclick="toggleMobileNav()" class="lg:hidden p-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200" aria-label="Menu">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Menu Déroulant Mobile -->
+      <div id="mobileNavMenu" class="hidden lg:hidden py-3 border-t border-slate-200 space-y-1">
+        <button onclick="scrollToSection('screen-qui-suis-je')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-abipa-orange">1. Qui suis-je ?</button>
+        <button onclick="scrollToSection('screen-academique')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-abipa-orange">2. Réalisations Académiques</button>
+        <button onclick="scrollToSection('screen-entreprise')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-abipa-orange">3. En Entreprise</button>
+        <button onclick="scrollToSection('screen-competences')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-abipa-orange">4. Compétences</button>
+        <button onclick="scrollToSection('screen-contact')" class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold text-slate-700 hover:bg-orange-50 hover:text-abipa-orange">5. Contact &amp; Coordonnées</button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ====================================================== -->
+  <!-- CONTENEUR DES PAGES DÉFILANTES BOUT À BOUT             -->
+  <!-- ====================================================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 space-y-24">
+
+    <!-- ====================================================== -->
+    <!-- SECTION 1 : QUI SUIS-JE ?                              -->
+    <!-- ====================================================== -->
+    <section id="screen-qui-suis-je" class="screen-view space-y-8 scroll-mt-28">
+      
+      <!-- Présentation & Encart Photo -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Bloc Texte Vocation & Profil -->
+        <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
+          <div>
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-abipa-orange">PRÉSENTATION PROFESSIONNELLE</span>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-abipa-navy tracking-tight mt-1">Enes Emin CUKUR</h1>
+            <p class="text-sm sm:text-base font-semibold text-slate-500 mt-1">Étudiant en BUT Génie Mécanique et Productique (GMP)</p>
+          </div>
+
+          <!-- Texte Vocation concis -->
+          <div class="p-4 sm:p-5 rounded-xl bg-slate-50 border-l-4 border-abipa-orange space-y-2">
+            <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-abipa-orange block">Raison du choix de ma vocation</span>
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed font-normal">
+              Ma passion pour le génie mécanique est née dès le lycée lors de mes premiers défis de conception en STI2D. Transformer une esquisse numérique sous CAO en une pièce réelle utilisable a été un vrai tournant dans mon parcours scolaire. Ainsi j'ai naturellement choisi le BUT GMP pour approfondir la CAO mais j'y ai aussi découvert la rigueur de l'usinage à commande numérique, la métrologie tridimensionnelle et surtout la FAO. Mon immersion industrielle a renforcé cette certitude : mon ambition est d'optimiser les gammes de production et de participer aux méthodes d'usinage de haute exigence.
+            </p>
+          </div>
+
+          <!-- CV Status & Action -->
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+            <div class="text-xs font-mono text-slate-500"></div>
+            <div class="flex items-center gap-2">
+              <button onclick="downloadOrOpenCv()" class="px-3.5 py-1.5 rounded-lg bg-abipa-navy hover:bg-slate-800 text-white text-xs font-bold transition-colors flex items-center gap-1.5">
+                <i data-lucide="eye" class="w-3.5 h-3.5 text-abipa-orange"></i>
+                <span>Consulter / Télécharger mon CV</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Encart Photo Personnel -->
+        <div class="lg:col-span-4 bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex flex-col items-center text-center space-y-4">
+          <div class="relative group">
+            <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border-2 border-slate-200 shadow-md bg-slate-100 flex items-center justify-center">
+              <img id="userProfileImage" src="photo.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0B1B2B/FFFFFF?text=Enes+Emin+CUKUR';" alt="Photo Enes Emin Cukur" class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Vidéo de Présentation (YouTube Intégrée) -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-abipa-orange"></span>
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-abipa-orange">SUPPORT MULTIMÉDIA</span>
+            </div>
+            <h3 class="font-bold text-lg text-abipa-navy mt-0.5">Vidéo de Présentation Synthétique</h3>
+          </div>
+        </div>
+
+        <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-abipa-navy flex items-center justify-center border border-slate-300 shadow-inner">
+          <iframe class="w-full h-full border-0" src="https://www.youtube.com/embed/bvnEKXH6Bzo" title="Vidéo de présentation - Enes Emin Cukur" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- 4 Piliers d'Excellence -->
+      <div class="space-y-4">
+        <h3 class="text-base sm:text-lg font-black text-abipa-navy flex items-center gap-2">
+          <i data-lucide="award" class="w-5 h-5 text-abipa-orange"></i>
+          <span>4 Piliers d'Excellence Professionnelle</span>
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-2 hover:border-abipa-orange transition-all">
+            <div class="w-9 h-9 rounded-lg bg-orange-100 flex items-center justify-center text-abipa-orange mb-1">
+              <i data-lucide="lightbulb" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-sm text-abipa-navy">Innovation &amp; Créativité</h4>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">Recherche continue de solutions techniques ingénieuses, optimisation géométrique sous SolidWorks et résolution méthodique de problématiques d'usinage complexes.</p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-2 hover:border-abipa-orange transition-all">
+            <div class="w-9 h-9 rounded-lg bg-orange-100 flex items-center justify-center text-abipa-orange mb-1">
+              <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-sm text-abipa-navy">Organisation &amp; Méthode</h4>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">Structuration des contrats de phase, gestion du temps machine, suivi scrupuleux de la documentation technique et respect des jalons projets.</p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-2 hover:border-abipa-orange transition-all">
+            <div class="w-9 h-9 rounded-lg bg-orange-100 flex items-center justify-center text-abipa-orange mb-1">
+              <i data-lucide="users-2" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-sm text-abipa-navy">Aisance Relationnelle</h4>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">Communication constructive en atelier comme au bureau d'études, transmission claire des consignes d'intervention et écoute active de l'équipe.</p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-2 hover:border-abipa-orange transition-all">
+            <div class="w-9 h-9 rounded-lg bg-orange-100 flex items-center justify-center text-abipa-orange mb-1">
+              <i data-lucide="zap" class="w-5 h-5"></i>
+            </div>
+            <h4 class="font-bold text-sm text-abipa-navy">Dépassement de Soi</h4>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">Constance dans l'effort, persévérance face aux aléas de fabrication, esprit d'initiative et volonté constante de montée en compétences techniques.</p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- SECTION 2 : RÉALISATIONS ACADÉMIQUES                   -->
+    <!-- ====================================================== -->
+    <section id="screen-academique" class="screen-view space-y-8 scroll-mt-28">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-abipa-borderGray">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-black text-abipa-navy">2. Réalisations Académiques</h2>
+          <p class="text-xs sm:text-sm text-abipa-steel mt-1">Quelques projets académiques marquants.</p>
+        </div>
+
+        <div class="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 self-start sm:self-auto">
+          <button onclick="switchAcademicTab('sti2d')" id="tab-btn-sti2d" class="px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-abipa-navy">
+            1. Bac STI2D
+          </button>
+          <button onclick="switchAcademicTab('but-gmp')" id="tab-btn-but-gmp" class="px-4 py-2 rounded-lg text-xs font-bold transition-all bg-abipa-navy text-white shadow">
+            2. BUT GMP
+          </button>
+        </div>
+      </div>
+
+      <!-- Onglet 1 : Bac STI2D -->
+      <div id="tab-content-sti2d" class="space-y-6 hidden">
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm hover:border-abipa-orange transition-all space-y-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-100">
+            <div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-orange-100 text-abipa-orange">PROJET MAJEUR BAC STI2D</span>
+              <h3 class="font-extrabold text-xl text-abipa-navy mt-1">Réalisation d'une maquette de maison autonome</h3>
+            </div>
+            <button onclick="openModal('modal-sti2d-1')" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-abipa-orange hover:text-white text-slate-700 text-xs font-bold transition-colors flex items-center gap-1.5 self-start md:self-auto">
+              <span>Dossier technique complet</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">Ce projet avait pour but de réaliser une maison autonome destinée aux PMR. Elle est équipée de divers capteurs pour accomplir des tâches comme ajuster la température, activer la ventilation, allumer la lumière et l'ajuster en fonction de la luminosité. Tous ces éléments sont contrôlés par une carte Arduino.</p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+            <div>
+              <strong class="font-semibold text-abipa-navy block mb-0.5">Outils &amp; Logiciels :</strong>
+              <span class="text-slate-600">SolidWorks CAO, Arduino C++, Capteurs inductifs/optiques</span>
+            </div>
+            <div>
+              <strong class="font-semibold text-abipa-navy block mb-0.5">Matériaux &amp; Composants :</strong>
+              <span class="text-slate-600">Carton, carte arduino, Capteurs de température, de luminosité, de présence, écran LCD</span>
+            </div>
+          </div>
+
+          <!-- Galerie Photos STI2D -->
+          <div class="space-y-3 pt-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold uppercase tracking-wider text-abipa-navy flex items-center gap-2">
+                <i data-lucide="images" class="w-4 h-4 text-abipa-orange"></i>
+                <span>Galerie Technique du Projet</span>
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden p-2 flex flex-col items-center justify-center min-h-[200px] relative group">
+                <img id="stiPhotoImg1" src="sti2d-1.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/0B1B2B/FFFFFF?text=STI2D+Photo+1';" class="w-full h-44 object-cover rounded-lg" alt="Photo 1">
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden p-2 flex flex-col items-center justify-center min-h-[200px] relative group">
+                <img id="stiPhotoImg2" src="sti2d-2.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/0B1B2B/FFFFFF?text=STI2D+Photo+2';" class="w-full h-44 object-cover rounded-lg" alt="Photo 2">
+              </div>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden p-2 flex flex-col items-center justify-center min-h-[200px] relative group">
+                <img id="stiPhotoImg3" src="sti2d-3.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/0B1B2B/FFFFFF?text=STI2D+Photo+3';" class="w-full h-44 object-cover rounded-lg" alt="Photo 3">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Onglet 2 : BUT GMP (2 projets : Projet Strike & SAÉ Industrialisation) -->
+      <div id="tab-content-but-gmp" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Projet GMP 2 (Projet Strike) -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-abipa-orange transition-all flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-orange-100 text-abipa-orange">Projet BUT 2</span>
+              </div>
+              <h3 class="font-bold text-base text-abipa-navy">Production d'un Oeuf surprise "Projet Strike"</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">Élaboration d'un jouet constitué de différents matériaux et réalisé à l'aide de différents procédés de production.</p>
+              
+              <div class="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                <div><strong class="font-semibold text-abipa-navy">Outils :</strong> Creo 5, impression 3D, Usinage traditionnel</div>
+                <div><strong class="font-semibold text-abipa-navy">Matériaux :</strong> Planche de bois traité, PLA, plastique thermoformé</div>
+              </div>
+            </div>
+
+            <button onclick="openModal('modal-gmp-2')" class="w-full py-2 px-3 rounded-lg bg-slate-100 hover:bg-abipa-orange hover:text-white text-slate-700 text-xs font-bold transition-colors flex items-center justify-center gap-1.5">
+              <span>Voir le dossier technique complet</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Projet GMP 3 (SAÉ Industrialisation) -->
+          <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-abipa-orange transition-all flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-orange-100 text-abipa-orange">SAÉ Industrialisation</span>
+              </div>
+              <h3 class="font-bold text-base text-abipa-navy">Industrialisation d'une pièce de fonderie</h3>
+              <p class="text-xs text-slate-600 leading-relaxed">Réalisation d'une pièce mécanique avec un procédé de fonderie et d'usinage.</p>
+              
+              <div class="space-y-1.5 text-xs text-slate-600 pt-2 border-t border-slate-100">
+                <div><strong class="font-semibold text-abipa-navy">Outils :</strong> CAO Creo 12, FAO TopSolid, Fonderie, Usinage CN</div>
+                <div><strong class="font-semibold text-abipa-navy">Matériaux :</strong> Acier moulé au carbone</div>
+              </div>
+            </div>
+
+            <button onclick="openModal('modal-gmp-3')" class="w-full py-2 px-3 rounded-lg bg-slate-100 hover:bg-abipa-orange hover:text-white text-slate-700 text-xs font-bold transition-colors flex items-center justify-center gap-1.5">
+              <span>Voir le dossier technique complet</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- SECTION 3 : EN ENTREPRISE (MÉRIBEL PHARMA)             -->
+    <!-- ====================================================== -->
+    <section id="screen-entreprise" class="screen-view space-y-8 scroll-mt-28">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-abipa-borderGray">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-abipa-orange"></span>
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-abipa-orange">EXPÉRIENCE INDUSTRIELLE SUR LE TERRAIN</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-black text-abipa-navy mt-1">3. En Entreprise : Méribel Pharma</h2>
+          <p class="text-xs sm:text-sm text-abipa-steel mt-1">Immersion professionnelle au service de la maintenance et de la production pharmaceutique.</p>
+        </div>
+
+        <div class="px-3.5 py-1.5 rounded-xl bg-orange-100 border border-orange-200 text-abipa-orange font-mono text-xs font-bold self-start sm:self-auto">
+          Production &amp; Maintenance Pharmaceutique
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+          <div>
+            <h3 class="font-extrabold text-xl text-abipa-navy">Méribel Pharma Group</h3>
+            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Conditionnement &amp; Fabrication de produits de santé • Lignes automatisées à haute cadence</p>
+          </div>
+          <div class="flex flex-wrap gap-2 text-xs font-mono font-semibold">
+            <span class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700">Normes BPF / GMP</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700">Salle Propre ISO</span>
+            <span class="px-3 py-1 rounded-lg bg-orange-50 text-abipa-orange font-bold">Maintenance Préventive</span>
+          </div>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+          Intégré au service technique et maintenance, j'ai participé à la fiabilisation des équipements de conditionnement et au maintien en conditions opérationnelles des lignes de production dans le respect strict des Bonnes Pratiques de Fabrication.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-abipa-orange transition-all space-y-3">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-abipa-orange shrink-0">
+              <i data-lucide="target" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-base text-abipa-navy">1. Missions Principales</h4>
+              <span class="text-[11px] font-mono text-slate-500">Responsabilités &amp; Cadre opérationnel</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed font-normal">Mise à jour/Création de documentations de maintenance en vue d'un audit client.<br>Création de documentation d'utilisation d'équipements.<br>Création de programme d'impression de "masque" de données en vue d'une démarche d'amélioration continue.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-abipa-orange transition-all space-y-3">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-abipa-orange shrink-0">
+              <i data-lucide="compass" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-base text-abipa-navy">2. Objectifs Assignés</h4>
+              <span class="text-[11px] font-mono text-slate-500">Indicateurs de réussite industrielle</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed font-normal">Réduire le temps moyen d'opérations de maintenance et de préparation.<br>Fiabiliser l'utilisation d'équipements spécifiques à la maintenance en vue d'un gain de temps.<br>Amélioration du processus d'impression de masque de données sur des étuis de médicament.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-abipa-orange transition-all space-y-3">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-abipa-orange shrink-0">
+              <i data-lucide="wrench" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-base text-abipa-navy">3. Tâches Réalisées</h4>
+              <span class="text-[11px] font-mono text-slate-500">Opérations techniques quotidiennes</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed font-normal">Analyse de la documentation existante, réalisation de l'inventaire des pièces nécessaires à la maintenance des équipements.<br>Tests et rédaction de la documentation d'utilisation des équipements.<br>Analyse de la documentation constructeur pour la création des masques de données.</p>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-abipa-orange transition-all space-y-3">
+          <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-abipa-orange shrink-0">
+              <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-base text-abipa-navy">4. Réalisations &amp; Impact</h4>
+              <span class="text-[11px] font-mono text-slate-500">Bénéfices mesurables pour l'usine</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed font-normal">Gain de temps sur les opérations de maintenance permettant une reprise rapide de la production.<br>Utilisation plus efficace des équipements vérifiable par le repérage rapide des points de chaleur (caméra thermique).<br>Contrôle et validation du nombre d'étuis acceptés et rejetés selon la qualité d'impression.</p>
+        </div>
+      </div>
+
+      <!-- Galerie Photos Entreprise -->
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2">
+            <i data-lucide="images" class="w-5 h-5 text-abipa-orange"></i>
+            <h3 class="font-extrabold text-lg text-abipa-navy">Galerie Technique en Entreprise</h3>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden p-2 flex flex-col items-center justify-center min-h-[220px] relative group">
+            <img id="entPhotoImg1" src="entreprise-1.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/0B1B2B/FFFFFF?text=Entreprise+Photo+1';" class="w-full h-48 object-cover rounded-lg" alt="Photo 1">
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden p-2 flex flex-col items-center justify-center min-h-[220px] relative group">
+            <img id="entPhotoImg2" src="entreprise-2.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/0B1B2B/FFFFFF?text=Entreprise+Photo+2';" class="w-full h-48 object-cover rounded-lg" alt="Photo 2">
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden p-2 flex flex-col items-center justify-center min-h-[220px] relative group">
+            <img id="entPhotoImg3" src="entreprise-3.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/0B1B2B/FFFFFF?text=Entreprise+Photo+3';" class="w-full h-48 object-cover rounded-lg" alt="Photo 3">
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- SECTION 4 : BLOCS DE COMPÉTENCES                       -->
+    <!-- ====================================================== -->
+    <section id="screen-competences" class="screen-view space-y-8 scroll-mt-28">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-abipa-borderGray">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-abipa-orange"></span>
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-abipa-orange">RÉFÉRENTIEL BUT GMP &amp; SAVOIR-FAIRE</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-black text-abipa-navy mt-1">4. Blocs de Compétences</h2>
+          <p class="text-xs sm:text-sm text-abipa-steel mt-1">Synthèse rédigée des pôles d'expertise technique, des méthodologies industrielles et des aptitudes professionnelles.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-abipa-orange transition-all flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+              <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-abipa-orange shrink-0">
+                <i data-lucide="box" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-base text-abipa-navy">Conception &amp; Modélisation CAO</h3>
+                <span class="text-[11px] font-mono text-slate-500">Bureau d'Études • Dimensionnement RDM</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">Maîtrise complète de la chaîne de conception sous Creo, de l'esquisse fonctionnelle à l'assemblage de mécanismes complexes. Pratique de la validation par calculs de résistance des matériaux (RDM) et simulations par éléments finis.</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100">
+            <span class="text-[11px] font-mono font-bold text-abipa-navy block mb-1">Mots-clés &amp; Logiciels :</span>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">SolidWorks 3D</span>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">Tolérancement ISO GPS</span>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">Simulation FEA</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-abipa-orange transition-all flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+              <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-abipa-orange shrink-0">
+                <i data-lucide="cpu" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-base text-abipa-navy">Méthodes, FAO &amp; Usinage CN</h3>
+                <span class="text-[11px] font-mono text-slate-500">Fabrication Mécanique • Programmation</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">Élaboration rigoureuse de gammes opératoires, contrats de phase et dossiers de fabrication. Programmation FAO sous TopSolid'Cam pour machines à commande numérique.</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100">
+            <span class="text-[11px] font-mono font-bold text-abipa-navy block mb-1">Mots-clés &amp; Logiciels :</span>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">TopSolid'Cam</span>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">Code ISO CN</span>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">Contrats de Phase</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:border-abipa-orange transition-all flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3 pb-3 border-b border-slate-100">
+              <div class="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-abipa-orange shrink-0">
+                <i data-lucide="check-square" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-base text-abipa-navy">Contrôle Métrologique &amp; Qualité</h3>
+                <span class="text-[11px] font-mono text-slate-500">Laboratoire Tridimensionnel • Conformité</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed font-normal">Vérification métrologique sur machines à mesurer tridimensionnelles (MMT) et instruments manuels. Analyse statistique des processus industriels (Cp, Cpk).</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100">
+            <span class="text-[11px] font-mono font-bold text-abipa-navy block mb-1">Mots-clés &amp; Logiciels :</span>
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">MMT 3D</span>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">Capabilité Cp / Cpk</span>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-medium">Instruments Manuels</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================== -->
+    <!-- SECTION 5 : CONTACT & COORDONNÉES                      -->
+    <!-- ====================================================== -->
+    <section id="screen-contact" class="screen-view space-y-8 scroll-mt-28">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-abipa-borderGray">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-abipa-orange"></span>
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-abipa-orange">DISPONIBILITÉ &amp; ÉCHANGES</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-black text-abipa-navy mt-1">5. Contact &amp; Coordonnées</h2>
+          <p class="text-xs sm:text-sm text-abipa-steel mt-1">N'hésitez pas à me contacter pour toute opportunité de stage, d'alternance ou de collaboration.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white rounded-2xl border border-slate-200 hover:border-abipa-orange hover:shadow-md p-6 transition-all group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-orange-100 text-abipa-orange flex items-center justify-center font-bold text-xl group-hover:scale-105 transition-transform">
+                <i data-lucide="at-sign" class="w-6 h-6"></i>
+              </div>
+              <a href="mailto:enes28500@gmail.com" class="px-2.5 py-1 rounded bg-slate-100 hover:bg-abipa-orange hover:text-white text-slate-600 text-[11px] font-bold transition-colors flex items-center gap-1">
+                <span>Écrire</span>
+              </a>
+            </div>
+            <div class="text-xs font-mono text-slate-500 mb-1">ADRESSE COURRIEL</div>
+            <div class="font-bold text-sm lg:text-base text-abipa-navy hover:text-abipa-orange transition-colors cursor-text break-all">enes28500@gmail.com</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 hover:border-abipa-orange hover:shadow-md p-6 transition-all group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-orange-100 text-abipa-orange flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="phone" class="w-6 h-6"></i>
+              </div>
+              <a href="tel:+330768668645" class="px-2.5 py-1 rounded bg-slate-100 hover:bg-abipa-orange hover:text-white text-slate-600 text-[11px] font-bold transition-colors flex items-center gap-1">
+                <span>Appeler</span>
+              </a>
+            </div>
+            <div class="text-xs font-mono text-slate-500 mb-1">TÉLÉPHONE DIRECT</div>
+            <div class="font-bold text-sm lg:text-base text-abipa-navy hover:text-abipa-orange transition-colors cursor-text">+33 07 68 66 86 45</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 hover:border-abipa-orange hover:shadow-md p-6 transition-all group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-blue-50 text-[#0077b5] flex items-center justify-center group-hover:scale-105 transition-transform">
+                <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"></path>
+                </svg>
+              </div>
+              <a href="https://www.linkedin.com/in/enes-emin-cukur-0971a1371" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded bg-blue-50 hover:bg-[#0077b5] hover:text-white text-[#0077b5] text-[11px] font-bold transition-colors flex items-center gap-1">
+                <span>Profil</span>
+              </a>
+            </div>
+            <div class="text-xs font-mono text-slate-500 mb-1">RÉSEAU PROFESSIONNEL</div>
+            <a href="https://www.linkedin.com/in/enes-emin-cukur-0971a1371" target="_blank" rel="noopener noreferrer" class="font-bold text-sm lg:text-base text-abipa-navy hover:text-abipa-orange transition-colors cursor-pointer">Enes Emin CUKUR</a>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-slate-200 hover:border-abipa-orange hover:shadow-md p-6 transition-all group flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <div class="w-12 h-12 rounded-xl bg-orange-100 text-abipa-orange flex items-center justify-center group-hover:scale-105 transition-transform">
+                <i data-lucide="file-down" class="w-6 h-6"></i>
+              </div>
+              <button onclick="downloadOrOpenCv()" class="px-3.5 py-1.5 rounded-lg bg-abipa-navy hover:bg-abipa-orange text-white text-xs font-bold shadow-sm transition-colors flex items-center gap-1.5">
+                <span>Mon CV</span>
+              </button>
+            </div>
+            <div class="text-xs font-mono text-slate-500 mb-1">CURRICULUM VITAE</div>
+            <div class="font-bold text-sm lg:text-base text-abipa-navy">Format PDF</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ====================================================== -->
+  <!-- MODALES DE DÉTAILS TECHNIQUES COMPLÈTES                -->
+  <!-- ====================================================== -->
+  <div id="projectModalContainer" class="fixed inset-0 z-50 bg-abipa-navy/80 backdrop-blur-sm items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl border border-slate-300 max-h-[90vh] overflow-y-auto space-y-4 relative">
+      <button onclick="closeModal()" class="absolute top-4 right-4 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div id="modalDynamicContent"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentModalKey = null;
+
+    const modalDataMap = {
+      'modal-sti2d-1': {
+        title: "Maquette de maison autonome pour PMR (Bac STI2D)",
+        subtitle: "Projet de Terminale STI2D • Conduite de projet, chaîne fonctionnelle et intégration mécatronique",
+        sections: [
+          { label: "1. Contexte du projet", text: "Projet d'épreuve terminale simulant une habitation automatisée adaptée aux personnes à mobilité réduite." },
+          { label: "2. Objectifs & Cahier des charges", text: "Automatiser l'éclairage, la climatisation, la ventilation et la détection d'intrusion en flux continu avec affichage en temps réel." },
+          { label: "3. Outils, Méthodes & Matériaux", text: "SolidWorks CAO, programmation C++ Arduino, capteurs de température, luminosité, ultrasons, écran LCD et servomoteurs." },
+          { label: "4. Contraintes & Difficultés résolues", text: "Gestion de la consommation énergétique et synchronisation des capteurs sans latence sur bus de communication." },
+          { label: "5. Étapes de réalisation", text: "1) Analyse fonctionnelle FAST/SADT. 2) Modélisation CAO 3D. 3) Câblage de la carte Arduino. 4) Assemblage de la maquette physique." }
+        ]
+      },
+      'modal-gmp-2': {
+        title: "Production d'un Oeuf surprise 'Projet Strike' (BUT GMP)",
+        subtitle: "SAÉ Conception & Production • Élaboration d'un jouet multi-matériaux",
+        sections: [
+          { label: "1. Contexte & SAÉ associée", text: "Conception et fabrication d'un produit multi-matériaux intégrant impression 3D, usinage et thermoformage." },
+          { label: "2. Objectifs & Cahier des charges", text: "Réaliser un ensemble mécanique ludique et fonctionnel assemblant plusieurs composants de natures différentes." },
+          { label: "3. Outils, Méthodes & Matériaux", text: "SolidWorks Creo, imprimantes 3D Ultimaker, machine de thermoformage, bois traité et PLA." },
+          { label: "4. Contraintes & Difficultés résolues", text: "Tolérances d'assemblage entre pièces plastiques et bois ; ajustement des jeux fonctionnels sous Creo." },
+          { label: "5. Étapes de réalisation", text: "1) Modélisation CAO. 2) Impression des coques PLA. 3) Usinage de la base bois. 4) Assemblage final et tests." },
+          { label: "6. Compétences BUT GMP développées", text: "Concevoir, dimensionner, fabriquer et contrôler des systèmes mécaniques dans le respect des exigences industrielles." }
+        ]
+      },
+      'modal-gmp-3': {
+        title: "Industrialisation d'une pièce de fonderie (BUT GMP)",
+        subtitle: "SAÉ Industrialisation • Fonderie et usinage d'une pièce brute",
+        sections: [
+          { label: "1. Contexte & SAÉ associée", text: "Étude et fabrication d'une pièce brute obtenue par fonderie nécessitant des opérations d'usinage de finition." },
+          { label: "2. Objectifs & Cahier des charges", text: "Définir le moulage, les dépouilles, les surépaisseurs d'usinage et concevoir les contrats de phase associés." },
+          { label: "3. Outils, Méthodes & Matériaux", text: "CAO Creo 12, FAO TopSolid, acier moulé au carbone, centre d'usinage CN." },
+          { label: "4. Contraintes & Difficultés résolues", text: "Gestion de la retassure et positionnement isostatique de la pièce brute moulée sur la machine d'usinage." },
+          { label: "5. Étapes de réalisation", text: "1) Modélisation du brut de fonderie. 2) Simulation du remplissage. 3) Programmation FAO des usinages de finition." },
+          { label: "6. Compétences BUT GMP développées", text: "Maîtrise des procédés de mise en forme et d'usinage à commande numérique dans le cadre d'un projet d'industrialisation." }
+        ]
+      }
+    };
+
+    function openModal(modalKey) {
+      const data = modalDataMap[modalKey];
+      if (!data) return;
+
+      currentModalKey = modalKey;
+      const container = document.getElementById('modalDynamicContent');
+      const savedBadge = "DOSSIER TECHNIQUE COMPLET";
+      const savedTitle = data.title;
+      const savedSubtitle = data.subtitle;
+
+      let prefix = 'gmp2';
+      if (modalKey === 'modal-gmp-3') prefix = 'gmp3';
+
+      let gmpPhotosHtml = `
+        <div class="mt-4 pt-3 border-t border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-mono font-bold uppercase tracking-wider text-abipa-navy flex items-center gap-2">
+              <i data-lucide="images" class="w-4 h-4 text-abipa-orange"></i>
+              <span>Galerie Photographique &amp; Justificatifs Techniques</span>
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            ${[1, 2, 3].map(slot => {
+              return `
+                <div class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden p-2 flex flex-col items-center justify-center min-h-[170px] relative group">
+                  <img id="modalPhoto_${modalKey}_${slot}" src="${prefix}-${slot}.jpg" onerror="this.onerror=null; this.src='https://placehold.co/300x200/0B1B2B/FFFFFF?text=Photo+${slot}';" class="w-full h-36 object-cover rounded-lg" alt="Photo ${slot}">
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = `
+        <div class="border-b border-slate-200 pb-3">
+          <span class="px-2.5 py-0.5 rounded bg-orange-100 text-abipa-orange font-mono text-[10px] font-bold">${savedBadge}</span>
+          <h3 class="text-xl font-black text-abipa-navy mt-1">${savedTitle}</h3>
+          <p class="text-xs text-slate-500 font-medium mt-0.5">${savedSubtitle}</p>
+        </div>
+        <div class="space-y-3 pt-2">
+          ${data.sections.map((s, idx) => `
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+              <strong class="font-bold text-abipa-navy block mb-1">${s.label}</strong>
+              <p class="text-slate-700 leading-relaxed font-normal">${s.text}</p>
+            </div>
+          `).join('')}
+          ${gmpPhotosHtml}
+        </div>
+      `;
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      loadGmpModalPhotos(modalKey);
+
+      const modal = document.getElementById('projectModalContainer');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      currentModalKey = null;
+      const modal = document.getElementById('projectModalContainer');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function downloadOrOpenCv() {
+      window.open('CV_Enes_Emin_Cukur.pdf', '_blank');
+    }
+
+    let isClickNavigating = false;
+
+    function scrollToSection(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (el) {
+        isClickNavigating = true;
+        highlightNav(sectionId);
+        el.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => { isClickNavigating = false; }, 800);
+      }
+      const mobileNav = document.getElementById('mobileNavMenu');
+      if (mobileNav && !mobileNav.classList.contains('hidden')) {
+        mobileNav.classList.add('hidden');
+      }
+    }
+
+    function highlightNav(activeId) {
+      document.querySelectorAll('.nav-link').forEach(btn => {
+        btn.classList.remove('font-bold', 'text-abipa-navy', 'bg-white', 'shadow-sm', 'border', 'border-slate-200');
+        btn.classList.add('text-slate-600');
+      });
+      const activeBtn = document.getElementById(`nav-${activeId}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-600');
+        activeBtn.classList.add('font-bold', 'text-abipa-navy', 'bg-white', 'shadow-sm', 'border', 'border-slate-200');
+      }
+    }
+
+    function setupScrollSpy() {
+      const sections = document.querySelectorAll('.screen-view');
+      window.addEventListener('scroll', () => {
+        if (isClickNavigating) return;
+        const scrollPosition = window.scrollY + 160;
+        sections.forEach(sec => {
+          const top = sec.offsetTop;
+          const height = sec.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            highlightNav(sec.id);
+          }
+        });
+      });
+    }
+
+    function toggleMobileNav() {
+      const menu = document.getElementById('mobileNavMenu');
+      menu.classList.toggle('hidden');
+    }
+
+    function switchAcademicTab(tabKey) {
+      const stiContent = document.getElementById('tab-content-sti2d');
+      const gmpContent = document.getElementById('tab-content-but-gmp');
+      const stiBtn = document.getElementById('tab-btn-sti2d');
+      const gmpBtn = document.getElementById('tab-btn-but-gmp');
+
+      if (tabKey === 'sti2d') {
+        stiContent.classList.remove('hidden');
+        gmpContent.classList.add('hidden');
+        stiBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition-all bg-abipa-navy text-white shadow';
+        gmpBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-abipa-navy';
+      } else {
+        stiContent.classList.add('hidden');
+        gmpContent.classList.remove('hidden');
+        gmpBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition-all bg-abipa-navy text-white shadow';
+        stiBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold transition-all text-slate-600 hover:text-abipa-navy';
+      }
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    function checkAndLoadStaticImage(url, onSuccess) {
+      const img = new Image();
+      img.onload = () => onSuccess(url);
+      img.onerror = () => {};
+      img.src = url;
+    }
+
+    async function loadStiPhotos() {
+      for (let slot = 1; slot <= 3; slot++) {
+        checkAndLoadStaticImage(`sti2d-${slot}.jpg`, (src) => {
+          const img = document.getElementById(`stiPhotoImg${slot}`);
+          if (img) img.src = src;
+        });
+      }
+    }
+
+    async function loadEntPhotos() {
+      for (let slot = 1; slot <= 3; slot++) {
+        checkAndLoadStaticImage(`entreprise-${slot}.jpg`, (src) => {
+          const img = document.getElementById(`entPhotoImg${slot}`);
+          if (img) img.src = src;
+        });
+      }
+    }
+
+    async function loadGmpModalPhotos(modalKey) {
+      let prefix = 'gmp2';
+      if (modalKey === 'modal-gmp-3') prefix = 'gmp3';
+
+      for (let slot = 1; slot <= 3; slot++) {
+        checkAndLoadStaticImage(`${prefix}-${slot}.jpg`, (src) => {
+          const img = document.getElementById(`modalPhoto_${modalKey}_${slot}`);
+          if (img) img.src = src;
+        });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      setupScrollSpy();
+      loadStiPhotos();
+      loadEntPhotos();
+
+      checkAndLoadStaticImage('photo.jpg', (src) => {
+        document.getElementById('userProfileImage').src = src;
+      });
+
+      const modalContainer = document.getElementById('projectModalContainer');
+      modalContainer.addEventListener('click', (e) => {
+        if (e.target === modalContainer) closeModal();
+      });
+
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+  </script>
+
+</body></html>
